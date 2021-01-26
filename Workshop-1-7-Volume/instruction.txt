@@ -125,11 +125,18 @@ cat > /etc/docker/daemon.json <<EOF
 EOF
 exit
 
-2. Restart docker service by command: sudo docker service restart
+2. Restart docker service by command: "sudo service docker restart"
 
-3. Create container for test as command: docker container -dt --name nodejs -p 3000:3000 labdocker/alpineweb:latest
+3. Create container for test as command: "docker container run -dt --name nodejs -p 3000:3000 labdocker/alpineweb:latest"
 
 4. Test open web browser: http://<public ip>:3000
+
+5. 
+5. Create checkpoint for standard version by command:
+  docker checkpoint create \
+  --leave-running=true \
+  --checkpoint-dircr checkpoint0
+
 
 5. Update sourcecode to container by command: docker container cp ~/
 
