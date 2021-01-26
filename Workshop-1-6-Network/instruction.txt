@@ -54,15 +54,15 @@ Part1: Reverse Proxy by DNS
   mkdir ~/kong/kong-configuration
 
 	10.2 Create database by command:
-	docker image pull postgres:9.6.17
+	docker image pull postgres:9.6.20
 	docker container run -dt --name kong-database \
     --network=webinternal -p 5432:5432 \
     --mount type=bind,source=/home/ubuntu/kong/postgres,target=/var/lib/postgresql/data \
     -e "POSTGRES_USER=kong" -e "POSTGRES_DB=kong" -e "POSTGRES_PASSWORD=kong" \
-    postgres:9.6.17
+    postgres:9.6.20
 
 	10.3 Initial database for kong by command:
-  docker pull kong:1.5.1-alpine
+  docker pull kong:2.3.0-alpine
 	docker container run --rm \
      --network=webinternal \
      -e "KONG_DATABASE=postgres" \
@@ -70,7 +70,7 @@ Part1: Reverse Proxy by DNS
      -e "KONG_PG_PASSWORD=kong" \
      -e "KONG_PG_USER=kong" \
      -e "KONG_PG_DATABASE=kong" \
-     kong:1.5.1-alpine kong migrations bootstrap
+     kong:2.3.0-alpine kong migrations bootstrap
 
 	10.4 Run kong api gateway by command:
 	docker container run -d --name kong \
@@ -89,7 +89,7 @@ Part1: Reverse Proxy by DNS
      -p 443:8443 \
      -p 8001:8001 \
      -p 8444:8444 \
-     kong:1.5.1-alpine
+     kong:2.3.0-alpine
 
 	*Remark: 
 	:8000 on which Kong listens for incoming HTTP traffic from your clients, and forwards it to your upstream services.
@@ -105,10 +105,10 @@ Part1: Reverse Proxy by DNS
     pantsel/konga:next
 
 	10.6 Install PGAdmin by command:
-	docker image pull dpage/pgadmin4:4.23
+	docker image pull dpage/pgadmin4:4.29
   docker container run -p 8080:80 --name pgadmin \
 	--network=webinternal -e "PGADMIN_DEFAULT_EMAIL=kong@localdomain.com" \
-    -e "PGADMIN_DEFAULT_PASSWORD=kong" -d dpage/pgadmin4:4.23
+    -e "PGADMIN_DEFAULT_PASSWORD=kong" -d dpage/pgadmin4:4.29
 
 	10.7 (local) Test open GUI:
 	http://<public ip>:8080		==> PGAdmin (Email Address: kong@localdomain.com, Password: kong) ==> Add Server: <private ip>, username: kong, password:kong
@@ -195,51 +195,13 @@ curl -i -X POST \
 DEMO: Reverse Proxy by DNS with MACVLAN (DEMO from Instructor)
 Note: If you need to join this lab. You need to install docker-machine over oracle virtualbox on MAC OS X
 ================================================================================
-1. Pull image nginx with command: 		
-	"docker image pull labdocker/nginx:labnetworkhttp2"
+1. Pull image with command: 		
+	docker image pull labdocker/nginx:labnetworkhttp2
+  docker image pull labdocker/alpineweb:web1
+  docker image pull labdocker/alpineweb:web2
 
 2. Check and Locate Network Card by command:
 	ifconfig / ip addr
-
-	Example: dockertoolbox (labdocker: eth1): Gateway: 192.168.99.1
-	----------------------------------------------------------------------------------------
-	docker@labdocker:~$ ip addr
-	----------------------------------------------------------------------------------------
-docker0   Link encap:Ethernet  HWaddr 02:42:45:01:0E:F9  
-          inet addr:172.17.0.1  Bcast:172.17.255.255  Mask:255.255.0.0
-          UP BROADCAST MULTICAST  MTU:1500  Metric:1
-          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
-          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:0 
-          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
-
-eth0      Link encap:Ethernet  HWaddr 08:00:27:6F:12:9D  
-          inet addr:10.0.2.15  Bcast:10.0.2.255  Mask:255.255.255.0
-          inet6 addr: fe80::a00:27ff:fe6f:129d/64 Scope:Link
-          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
-          RX packets:299 errors:0 dropped:0 overruns:0 frame:0
-          TX packets:221 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:1000 
-          RX bytes:41629 (40.6 KiB)  TX bytes:40838 (39.8 KiB)
-
-eth1      Link encap:Ethernet  HWaddr 08:00:27:39:C9:62  
-          inet addr:192.168.99.100  Bcast:192.168.99.255  Mask:255.255.255.0
-          inet6 addr: fe80::a00:27ff:fe39:c962/64 Scope:Link
-          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
-          RX packets:2 errors:0 dropped:0 overruns:0 frame:0
-          TX packets:12 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:1000 
-          RX bytes:1180 (1.1 KiB)  TX bytes:1485 (1.4 KiB)
-
-lo        Link encap:Local Loopback  
-          inet addr:127.0.0.1  Mask:255.0.0.0
-          inet6 addr: ::1/128 Scope:Host
-          UP LOOPBACK RUNNING  MTU:65536  Metric:1
-          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
-          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:1000 
-          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
-	---------------------------------------------------------------------------------------------
 
 3. Create Network for MACVLAN by command: (This example: will extract 192.168.99.193 - 192.168.99.206 for macvlan)
 	docker network create -d macvlan --subnet=192.168.99.0/24 --ip-range=192.168.99.192/28 --gateway=192.168.99.1 -o parent=eth1 macvlanlab

@@ -6,3 +6,9 @@
 	4.2 input username/password
 	4.3 docker image push <account>/alpineweb:latest
 	4.4 docker logout
+
+5. Test save image to tar file by command: docker image save -o ~/alpineweb.tar <account>/alpineweb:latest
+6. Check image save by command: ls -lh ~/alpineweb.tar
+7. Remove image from system by command: docker image rm <account>/alpineweb:latest
+8. Test load image from tar file by command: docker image load -i ~/alpineweb.tar
+9. Check image again by command: docker image ls
