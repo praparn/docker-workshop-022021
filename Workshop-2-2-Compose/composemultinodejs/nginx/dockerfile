@@ -4,8 +4,9 @@ LABEL Description="NodeJS/NGINX Build Container" Version="1.0"
 ENV NODE_VERSION=v10.14.2-r0 NPM_VERSION=v10.14.2-r0
 RUN mkdir -p /run/nginx
 RUN apk update && \
-    apk add nginx curl && \
-    rm /etc/nginx/conf.d/default.conf
+    apk add nginx curl --no-cache && \
+    rm /etc/nginx/conf.d/default.conf \
+    rm -rf /var/cache/apk/*
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY labdocker.com.crt /etc/nginx/labdocker.com.crt
 COPY labdocker.com.key /etc/nginx/labdocker.com.key
