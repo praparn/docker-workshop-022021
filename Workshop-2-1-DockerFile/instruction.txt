@@ -9,15 +9,7 @@ BUILD Scratch (From file):
 2. Build docker image from command: 
 	docker image build -t labdocker/hello-world:1.0 ~/docker-workshop-022021/Workshop-2-1-DockerFile/scratch/
 
-3. Test run docker image from command: "docker container run labdocker/hello-world:1.0"
-
-BUILD Scratch (From git directly):
-
-4. Build docker image from git by command: 
-	docker image build -t labdocker/hello-world:1.0 ~/docker-workshop-022021/Workshop-2-1-DockerFile/scratch/
-
-3. Test run docker image from command: "docker container run labdocker/hello-world:1.0"
-
+3. Test run docker image from command: "docker container run --rm labdocker/hello-world:1.0"
 
 Part 2: NODEJS/NGINX
 -----------------------------------------------------------------------------------------------------------
@@ -67,10 +59,10 @@ Part 3: RESTFUL Python
 
 3. Build module "webservice" by command:
 	cd ~/docker-workshop-022021/Workshop-2-1-DockerFile/python_restfulset
-	docker image build -t labdocker/webservice:1.0 -f dockerfile_python ./
+	docker image build -t labdocker/webservice:1.0 -f dockerfile_python --rm ./
 
 3. Build module "webcache" by command:
-	docker image build -t labdocker/webcache:1.0 -f dockerfile_nginx ./
+	docker image build -t labdocker/webcache:1.0 -f dockerfile_nginx --rm ./
 
 4. Setup application stack by command: (Step-by-Step and Check)
 	(maindb: mariadb)
