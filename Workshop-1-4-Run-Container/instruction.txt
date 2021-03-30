@@ -23,7 +23,7 @@ CONTAINER ID        IMAGE                        COMMAND             CREATED    
 		docker container run -it --rm --name linebot -e TITLE="Line BOT (Bank of Thailand)" -e "TOKEN=<LINE TOKEN>" labdocker/linenotify:bot_v2
 
 		Ex:
-		docker container run --rm --name linebot -e "TITLE=Line BOT (Bank of Thailand)" -e "TOKEN=EIeqyillzkzpaCo1ROrebZTcGbIyzDZHpOjcdd0t6CX" labdocker/linenotify:bot_v2
+		docker container run --rm --name linebot -e "TITLE=Line BOT (Bank of Thailand)" -e "TOKEN=pKCqcUWGmCpEoNBDNZxsnt5OT4kP41F2BK3QsdSdMDw" labdocker/linenotify:bot_v2
 
 3. Detach NODEJS
 	3.1 run docker on detach mode with command

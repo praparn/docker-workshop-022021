@@ -30,7 +30,7 @@ Part 1: Host Path Debug Program
 	export HEAP_HIGH=70 
 	export MEM_HIGH=30 
 	export SH_OS=Y 
-	export TOKEN=EIeqyillzkzpaCo1ROrebZTcGbIyzDZHpOjcdd0t6CX			==> Replace with your token
+	export TOKEN=pKCqcUWGmCpEoNBDNZxsnt5OT4kP41F2BK3QsdSdMDw			==> Replace with your token
 
 8. Access to mapping volume and Test running LINENotify by command:
 	cd /nodejs
