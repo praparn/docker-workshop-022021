@@ -139,8 +139,8 @@ Registry with Harbor
 
 23. (Teacher Machine) Setup Harbor Registry by command:
 	cd ~
-	wget https://github.com/goharbor/harbor/releases/download/v2.1.3/harbor-online-installer-v2.1.3.tgz
-	tar xvf harbor-online-installer-v2.1.3.tgz && cd ./harbor
+	wget https://github.com/goharbor/harbor/releases/download/v2.2.1/harbor-online-installer-v2.2.1.tgz
+	tar xvf harbor-online-installer-v2.2.1.tgz && cd ./harbor
 
 24. (Teacher Machine) Configure initial start by command:
 	cp harbor.yml.tmpl harbor.yml
