@@ -86,10 +86,10 @@ networks:
       ipam:
         driver: default
         config:
-        - subnet: 192.168.100.0/24
+        - subnet: 10.10.0.0/16
     webinternal:
       driver: overlay
       ipam:
         driver: default
         config:
-        - subnet: 192.168.101.0/24
+        - subnet: 10.11.0.0/16
